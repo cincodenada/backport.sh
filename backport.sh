@@ -16,4 +16,7 @@ for v in $(seq $START 1); do
   VERSION_BRANCH=$BRANCH-$v
   git branch $VERSION_BRANCH
   git rebase --onto $TAG master $VERSION_BRANCH
+  SUBJECT=$(git show -s --format="%s")
+  BODY=$(git show -s --format="%b")
+  git commit --amend -m "backport: $SUBJECT" -m "$BODY"
 done
